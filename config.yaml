@@ -1,0 +1,7 @@
+dir:
+- C:\Users\Administrator\PycharmProjects\Sensitive_Prober\test
+- C:\Users\Administrator\PycharmProjects\Sensitive_Prober\utils
+
+sensitive:
+- PyYAML
+- ABC

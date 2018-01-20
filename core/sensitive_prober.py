@@ -1,5 +1,5 @@
 import os
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, wait
 
 from probers.doc_prober import Doc_Prober
 from probers.excel_prober import Excel_Prober
@@ -11,6 +11,13 @@ from utils.log import logger
 
 
 def take_action(ext, abs_file, sensitive_list):
+    """
+    根据文件后缀，选择不同的探测器
+    :param ext:
+    :param abs_file:
+    :param sensitive_list:
+    :return:
+    """
     if ext in ["docx", "doc"]:
         prober = Doc_Prober(abs_file, sensitive_list)
         prober.process()
@@ -42,6 +49,12 @@ def special_agent(path, sensitive_list):
 
 
 def special_agent_manager(dir_list, sensitive_list):
+    """
+    探测进程管理器，因为涉及大量IO操作，所以选择多进程，而非多线程
+    :param dir_list:
+    :param sensitive_list:
+    :return:
+    """
     executor = ProcessPoolExecutor(max_workers=10)
     future_list = []
 
