@@ -21,7 +21,7 @@ def take_action(ext, abs_file, sensitive_list):
     if ext in ["docx", "doc"]:
         prober = Doc_Prober(abs_file, sensitive_list)
         prober.process()
-    elif ext in ["pdf", "PDF"]:
+    elif ext in ["pdf"]:
         prober = Pdf_Prober(abs_file, sensitive_list)
         prober.process()
     elif ext in ["csv", "xlsm", "xls", "xlsx"]:

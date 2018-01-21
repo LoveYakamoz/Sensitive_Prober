@@ -1,3 +1,5 @@
+import xlrd
+
 from probers.prober import Prober
 from utils.log import logger
 
@@ -12,10 +14,17 @@ class Excel_Prober(Prober):
 
     def start_probe(self):
         print("=====> %s" % self._file)
-        if self._file in ["xlsx", "csv", "xlsm", "xlm"]:
-            pass
-        else:
-            pass
+        try:
+            datasheets = xlrd.open_workbook(self._file)
+            for table in datasheets.sheets():
+                nrows = table.nrows
+                for i in range(nrows):
+                    text = table.row_values(i)
+                    for sensitive in self._sensitive_list:
+                        if sensitive in text and sensitive not in self._result_list:
+                            self._result_list.append(sensitive)
+        except Exception as e:
+            logger.error(str(e))
 
     def end_probe(self):
         if len(self._result_list) > 0:

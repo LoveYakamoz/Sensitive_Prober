@@ -3,7 +3,7 @@ LOG_FILE = "system.log"
 
 handler = logging.handlers.RotatingFileHandler(
     LOG_FILE, maxBytes=4 * 1024 * 1024, backupCount=5)
-fmt = '%(asctime)s - %(process)d - %(lineno)s - %(name)s - %(message)s'
+fmt = '%(asctime)s - %(process)d - %(levelname)s - %(name)s - %(message)s'
 
 formatter = logging.Formatter(fmt)
 handler.setFormatter(formatter)
